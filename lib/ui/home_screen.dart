@@ -41,7 +41,24 @@ class HomeScreen extends StatelessWidget {
     return ListView.builder(
       itemCount: students.length,
       itemBuilder: (context, index){
-        return Text(students[index].name);
+        return Card(
+          margin: EdgeInsets.all(5),
+          child: Column(
+            children: [
+              Divider(color: Color.fromARGB(255, 150, 158, 165),),
+              Text(students[index].name),
+              Divider(color: Color.fromARGB(255, 150, 158, 165),),
+              Text(students[index].address),
+              Divider(color: Color.fromARGB(255, 150, 158, 165),),
+              Text(students[index].phone),
+              Divider(color: Color.fromARGB(255, 150, 158, 165),),
+              Text(students[index].age.toString()),
+              Divider(color: Color.fromARGB(255, 150, 158, 165),),
+              Text(students[index].birthday.toString()),
+              // Divider(color: Color.fromARGB(255, 1, 20, 36),),
+            ],
+          ),
+        );
       });
   }
 }
