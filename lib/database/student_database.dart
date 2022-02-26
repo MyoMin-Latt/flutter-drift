@@ -10,7 +10,7 @@ part 'student_database.g.dart';
 class StudentDatabse extends _$StudentDatabse{
   StudentDatabse() : super(_database());
 
-  Future<int> insertStudent(Student student) async{
+  Future<int> insertStudent(StudentTableCompanion student) async{
     return await into(studentTable).insert(student);
   }
 
@@ -18,7 +18,7 @@ class StudentDatabse extends _$StudentDatabse{
     return select(studentTable).watch();
   }
 
-  Future<bool> updateStudent(Student student)async{
+  Future<bool> updateStudent(StudentTableCompanion student)async{
     return await update(studentTable).replace(student);
   }
 

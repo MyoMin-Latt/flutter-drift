@@ -1,9 +1,10 @@
 import 'package:a15_drift/database/student_database.dart';
 import 'package:a15_drift/ui/add_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
-  StudentDatabse studentDatabse = StudentDatabse();
+  StudentDatabse studentDatabse = Get.find();
   HomeScreen({ Key? key }) : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class HomeScreen extends StatelessWidget {
         stream: studentDatabse.getAllStudent(),
         builder: (context, snapshot){
           if(snapshot.hasData){
-            return Text(snapshot.data.toString());
+            return _studentList(snapshot.data!);
           }
           else if (snapshot.hasError){
             return Text("Error");
@@ -35,5 +36,12 @@ class HomeScreen extends StatelessWidget {
           }
         }),
     );
+  }
+  Widget _studentList(List<Student> students){
+    return ListView.builder(
+      itemCount: students.length,
+      itemBuilder: (context, index){
+        return Text(students[index].name);
+      });
   }
 }
