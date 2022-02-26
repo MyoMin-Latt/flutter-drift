@@ -1,4 +1,5 @@
 import 'package:a15_drift/database/student_database.dart';
+import 'package:a15_drift/ui/add_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,6 +10,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.push(context, 
+            MaterialPageRoute(builder: (context) {
+              return AddStudent();
+            },));
+          }, icon: Icon(Icons.add))
+        ],
         centerTitle: true,
         title: Text("Student Db"),
       ),
@@ -16,7 +25,7 @@ class HomeScreen extends StatelessWidget {
         stream: studentDatabse.getAllStudent(),
         builder: (context, snapshot){
           if(snapshot.hasData){
-            return Text('Data');
+            return Text(snapshot.data.toString());
           }
           else if (snapshot.hasError){
             return Text("Error");
