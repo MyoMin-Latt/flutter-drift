@@ -3,19 +3,25 @@ import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddScreen extends StatefulWidget {
-  AddScreen({Key? key}) : super(key: key);
+class UpdateScreen extends StatefulWidget {
+  final Student student;
+  UpdateScreen({Key? key, required this.student}) : super(key: key);
 
   @override
-  State<AddScreen> createState() => _AddScreenState();
+  State<UpdateScreen> createState() => _UpdateScreenState();
 }
 
-class _AddScreenState extends State<AddScreen> {
+class _UpdateScreenState extends State<UpdateScreen> {
   final _formKey = GlobalKey<FormState>();
   StudentDatabase studentDatabase = Get.find();
   String? name, address, phone, age;
-
+  int? id;
   DateTime? birthday;
+  @override
+  void initState() {
+    birthday = widget.student.birthday;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +36,7 @@ class _AddScreenState extends State<AddScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  initialValue: widget.student.name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please Enter your name';
@@ -48,6 +55,7 @@ class _AddScreenState extends State<AddScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  initialValue: widget.student.address,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please Enter your address';
@@ -66,6 +74,7 @@ class _AddScreenState extends State<AddScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  initialValue: widget.student.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please Enter your phone';
@@ -84,9 +93,10 @@ class _AddScreenState extends State<AddScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  initialValue: widget.student.age.toString(),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please Enter your email';
+                      return 'Please Enter your age';
                     }
                   },
                   onSaved: (val) {
@@ -123,12 +133,16 @@ class _AddScreenState extends State<AddScreen> {
                 child: ElevatedButton.icon(
                     onPressed: () {
                       if (birthday == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Please select your birthday")));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Please select your birthday"),
+                          ),
+                        );
                       } else if (_formKey.currentState == null ||
                           _formKey.currentState!.validate()) {
                         _formKey.currentState?.save();
-                        studentDatabase.insertStudent(StudentTableCompanion(
+                        studentDatabase.updateStudent(StudentTableCompanion(
+                          id: drift.Value(widget.student.id),
                           name: drift.Value(name!),
                           address: drift.Value(address!),
                           phone: drift.Value(phone!),
@@ -136,11 +150,11 @@ class _AddScreenState extends State<AddScreen> {
                           birthday: drift.Value(birthday!),
                         ));
 
-                        Navigator.pop(context, 'success');
+                        Navigator.pop(context);
                       }
                     },
                     icon: Icon(Icons.save),
-                    label: Text('Save')),
+                    label: Text('Edit')),
               ),
             ],
           )),
