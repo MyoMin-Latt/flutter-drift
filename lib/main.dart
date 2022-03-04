@@ -6,7 +6,7 @@
 // @15.11 Student List item [Part 11]
 // @15.12 Drift ORM delete single item[Part 12]
 // @15.13 Drift ORM update student[Part 13]
-
+// @15.14 Drift ORM delete all students [Part 14]
 
 
 import 'package:a15_drift/database/student_database.dart';

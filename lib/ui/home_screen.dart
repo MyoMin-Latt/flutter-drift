@@ -14,10 +14,28 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                Get.to(AddScreen());
-              },
-              icon: Icon(Icons.add))
+            onPressed: () {
+              Get.to(AddScreen());
+            },
+            icon: Icon(Icons.add),
+          ),
+          IconButton(onPressed: (){
+            showDialog(context: context, 
+            builder: (context){
+              return AlertDialog(
+                title: Text('Sure to Delete all'),
+                actions: [
+                  IconButton(onPressed: (){
+                    studentDatabase.deleteAllStudents();
+                    Navigator.pop(context);
+                  }, icon: Text("Yes"),),
+                  IconButton(onPressed: (){
+                    Navigator.pop(context);
+                  }, icon: Text("No"),),
+                ],
+              );
+            });
+          }, icon: Icon(Icons.delete))
         ],
         centerTitle: true,
         title: Text('Student Database'),

@@ -32,10 +32,9 @@ class StudentDatabase extends _$StudentDatabase{
     return await delete(studentTable).delete(student);
   }
 
-  Future<int> deleteAllStudents(List<Student> students)async{
-    return await deleteAllStudents(students);
+  Future deleteAllStudents()async{
+    return await (delete(studentTable)..where((tbl) => tbl.id.isBiggerThanValue(0))).go();
   }
-
 }
 
 
