@@ -1,3 +1,4 @@
+import 'package:a15_drift/database/student_dao.dart';
 import 'package:a15_drift/database/student_database.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class UpdateScreen extends StatefulWidget {
 
 class _UpdateScreenState extends State<UpdateScreen> {
   final _formKey = GlobalKey<FormState>();
-  StudentDatabase studentDatabase = Get.find();
+  StudentDao studentDao = Get.find();
   String? name, address, phone, age;
   int? id;
   DateTime? birthday;
@@ -141,7 +142,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       } else if (_formKey.currentState == null ||
                           _formKey.currentState!.validate()) {
                         _formKey.currentState?.save();
-                        studentDatabase.updateStudent(StudentTableCompanion(
+                        studentDao.updateStudent(StudentTableCompanion(
                           id: drift.Value(widget.student.id),
                           name: drift.Value(name!),
                           address: drift.Value(address!),

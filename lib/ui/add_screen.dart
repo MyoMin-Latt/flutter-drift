@@ -1,3 +1,4 @@
+import 'package:a15_drift/database/student_dao.dart';
 import 'package:a15_drift/database/student_database.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class AddScreen extends StatefulWidget {
 
 class _AddScreenState extends State<AddScreen> {
   final _formKey = GlobalKey<FormState>();
-  StudentDatabase studentDatabase = Get.find();
+  StudentDao studentDao = Get.find();
   String? name, address, phone, age;
 
   DateTime? birthday;
@@ -128,7 +129,7 @@ class _AddScreenState extends State<AddScreen> {
                       } else if (_formKey.currentState == null ||
                           _formKey.currentState!.validate()) {
                         _formKey.currentState?.save();
-                        studentDatabase.insertStudent(StudentTableCompanion(
+                        studentDao.insertStudent(StudentTableCompanion(
                           name: drift.Value(name!),
                           address: drift.Value(address!),
                           phone: drift.Value(phone!),

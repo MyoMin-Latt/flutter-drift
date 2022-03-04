@@ -7,6 +7,8 @@
 // @15.12 Drift ORM delete single item[Part 12]
 // @15.13 Drift ORM update student[Part 13]
 // @15.14 Drift ORM delete all students [Part 14]
+// @15.15 Drift ORM Dao [Part 15]/ Modular structure ဖြစ်အောင် Dao ကိုသပ်သပ်ခွဲရေးသွားမှာဖြစ်ပါတယ်။
+
 
 
 import 'package:a15_drift/database/student_database.dart';
@@ -16,7 +18,7 @@ import 'package:get/get.dart';
 
 void main() {
   StudentDatabase studentDatabase = StudentDatabase();
-  Get.put(studentDatabase);
+  Get.put(studentDatabase.studentDao);
   runApp(const MyApp());
 }
 

@@ -1,3 +1,4 @@
+import 'package:a15_drift/database/student_dao.dart';
 import 'package:a15_drift/database/student_database.dart';
 import 'package:a15_drift/ui/add_screen.dart';
 import 'package:a15_drift/ui/update_screen.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
-  StudentDatabase studentDatabase = Get.find();
+  StudentDao studentDao = Get.find();
   HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                 title: Text('Sure to Delete all'),
                 actions: [
                   IconButton(onPressed: (){
-                    studentDatabase.deleteAllStudents();
+                    studentDao.deleteAllStudents();
                     Navigator.pop(context);
                   }, icon: Text("Yes"),),
                   IconButton(onPressed: (){
@@ -41,7 +42,7 @@ class HomeScreen extends StatelessWidget {
         title: Text('Student Database'),
       ),
       body: StreamBuilder<List<Student>>(
-          stream: studentDatabase.getAllStudents(),
+          stream: studentDao.getAllStudents(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return studentList(snapshot.data!);
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                       icon: Icon(Icons.edit)),
                   IconButton(
                       onPressed: () {
-                        studentDatabase.deleteStudent(student[index]);
+                        studentDao.deleteStudent(student[index]);
                       },
                       icon: Icon(Icons.delete)),
                 ]),
